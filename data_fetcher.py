@@ -8,10 +8,10 @@ load_dotenv()
 __all__ = ['get_data']
 
 
-def get_data(day: int):
+def get_data(day: int, use_cache: bool = False):
     path = f'cache/{day}_input.txt'
     cookies = {'session': os.getenv('ADVENT_SESSION', None)}
-    if cookies['session']:
+    if cookies['session'] and not use_cache:
         try:
             with requests.get(f'https://adventofcode.com/2022/day/{day}/input', cookies=cookies) as response:
                 data = response.text
